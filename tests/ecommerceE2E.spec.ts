@@ -36,7 +36,7 @@ test.describe('SauceDemo Master E-Commerce Framework Testing Suite', () => {
     });
     test('TC04: Login Validation Error when Password field is empty', async () => {
         await loginPage.usernameInput.fill(testData.validUser);
-        await loginPage.LoginButton.click();
+        await loginPage.loginButton.click();
         await expect(loginPage.errorMessage).toHaveText(/Password is required/);
 
     });
@@ -64,7 +64,7 @@ test.describe('SauceDemo Master E-Commerce Framework Testing Suite', () => {
 
     test('TC08: Removing item updates Cart Badge accurately', async () => {
         await inventoryPage.addProductToCart(testData.products.backpack);
-        await inventoryPage.removeProductFromCart(testData.products.backpack);
+        await inventoryPage.removeProductToCart(testData.products.backpack);
         await expect(inventoryPage.cartBadge).not.toBeVisible();
     });
     test('TC09: Multiple product selection stacks cart metrics count', async () => {
@@ -79,7 +79,7 @@ test.describe('SauceDemo Master E-Commerce Framework Testing Suite', () => {
 
     });
     // PAGE 3: SHOPPING CART PREVIEW PAGE TESTS (5 Test Cases)
-    test.describe('Module 3 - Shopping cart Validations', () => {
+    test.describe('Module 3 - Inventory Catalog Validations', () => {
         test.beforeEach(async()=>{
             await loginPage.login(testData.validUser,testData.validPassword);
     });
@@ -96,58 +96,59 @@ test.describe('SauceDemo Master E-Commerce Framework Testing Suite', () => {
         await inventoryPage.addProductToCart(testData.products.backpack);
         await inventoryPage.openCart();
         await cartPage.removeButton.click();
-     });
+    });
     test('TC14: Continue Shopping action returns execution focus safely back to Product list catalog', async ({ page }) => {
         await inventoryPage.openCart();
         await cartPage.clickContinueShopping();
         await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-
     });
-    test('TC15: Checkout button redirection links directly onto client forms mapping wizard steps', async ({ page }) => {
+     test('TC15: Checkout button redirection links directly onto client forms mapping wizard steps', async ({ page }) => {
         await inventoryPage.addProductToCart(testData.products.backpack);
         await inventoryPage.openCart();
-        await cartPage.clickCheckout();
-        await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html'); 
-
+        await cartPage.clickCheckOut();
+        await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html');
+     });
 });
-
-});
-
-// PAGE 4: CHECKOUT PROCESSOR PAGE TESTS (5 Test Cases)
-
-    test.describe('Module 4 - Checkout Validations', () => {
+     // PAGE 4: CHECKOUT PROCESSOR PAGE TESTS (5 Test Cases)
+     test.describe('Module 4 - CHECKOUT PROCESSOR PAGE TESTS', () => {
         test.beforeEach(async()=>{
-        await loginPage.login(testData.validUser,testData.validPassword);
-        await inventoryPage.addProductToCart(testData.products.backpack);
-        await inventoryPage.openCart();
-        await cartPage.clickCheckout();
+            await loginPage.login(testData.validUser,testData.validPassword);
+            await inventoryPage.addProductToCart(testData.products.backpack);
+            await inventoryPage.openCart();
+            await cartPage.clickCheckOut();
     });
     test('TC16: Form Validation Requirement triggers missing input error if First Name field is absent', async () => {
-        await checkoutPage.lastNameInput.fill(testData.customerDetails.lastname);
-        await checkoutPage.postalCodeInput.fill(testData.customerDetails.postalcode);
-        await checkoutPage.continueButton.click();
-        await expect(checkoutPage.page.locator('[data-test="error"]')).toHaveText(/Error: First Name is required/);
+            await checkoutPage.lastNameInput.fill(testData.customerDetails.lastname);
+            await checkoutPage.postalCodeInput.fill(testData.customerDetails.postalcode);
+            await checkoutPage.continueButton.click();
+            await expect(checkoutPage.page.locator('[data-test="error"]')).toHaveText(/Error: First Name is required/);
     });
     test('TC17: Complete Delivery Validation maps to Review Step Two', async ({ page }) => {
-        await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
-        await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html');
+            await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
+            await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html');
+
     });
     test('TC18: Financial Total Price Calculation summary details presence verification', async () => {
-        await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
-        await expect(checkoutPage.summaryTotalLabel).toBeVisible();
-        await expect(checkoutPage.summaryTotalLabel).toContainText('Total: $');
+            await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
+            await expect(checkoutPage.summaryTotalLabel).toBeVisible();
+            await expect(checkoutPage.summaryTotalLabel).toContainText('Total: $');
     });
-    test('TC19: Successful final confirmation order submission', async () => {
-        await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
-        await checkoutPage.clickFinish();
-        await expect(checkoutPage.completeHeader).toHaveText('Thank you for### your order!');
-    });
-    test('TC20: System tracking coordinates revert back directly into clean catalog layout state after final reset confirmation', async ({ page }) => {
-        await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
-        await checkoutPage.clickFinish();
-        await page.locator('[data-test="back-to-products"]').click();
-        await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+        test('TC19: Successful final confirmation order submission', async () => {
+            await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
+            await checkoutPage.clickFinish();
+            await expect(checkoutPage.completeHeader).toHaveText('Thank you for your order!');
+        });
+    
+            test('TC20: System tracking coordinates revert back directly into clean catalog layout state after final reset confirmation', async ({ page }) => {
+         await checkoutPage.fillCustomerInformation(testData.customerDetails.firstname,testData.customerDetails.lastname,testData.customerDetails.postalcode);
+            await checkoutPage.clickFinish();
+            await page.locator('#back-to-products').click();
+            await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 
-});
-});
-});
+
+            });
+
+    });
+
+ });
+ 
