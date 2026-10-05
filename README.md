@@ -95,7 +95,10 @@ Playwright-TypeScript-E2E-Automation-Framework
 │
 ├── tests/
 │   └── ecommerceE2E.spec.ts
-│
+│docs/
+└── screenshots/
+    ├── playwright-report-20-passed.png
+    └── github-actions-ci-passed.png
 ├── playwright.config.ts
 ├── package.json
 ├── package-lock.json
@@ -150,3 +153,19 @@ Key Concepts Demonstrated
 - Automated CI execution
 - Test reporting
 - Git version control
+
+## Execution Evidence
+
+### Local Playwright Execution
+
+The stable Chromium suite currently executes **20 automated test cases with 20/20 passing**.
+
+![Playwright HTML Report](docs/screenshots/playwright-report-20-passed.png)
+
+### GitHub Actions CI
+
+The automation suite is also executed in a clean Ubuntu CI environment using GitHub Actions.
+
+![GitHub Actions CI](docs/screenshots/github-actions-ci-passed.png)
+
+The CI pipeline installs dependencies and Chromium, executes the Playwright suite, and uploads the HTML report as a workflow artifact.
