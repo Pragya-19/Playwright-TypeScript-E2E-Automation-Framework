@@ -153,6 +153,7 @@ Key Concepts Demonstrated
 - Automated CI execution
 - Test reporting
 - Git version control
+```
 
 ## Execution Evidence
 
