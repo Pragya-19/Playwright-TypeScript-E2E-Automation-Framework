@@ -1,4 +1,5 @@
 # Playwright TypeScript E2E Automation Framework
+[![Playwright Tests](https://github.com/Pragya-19/Playwright-TypeScript-E2E-Automation-Framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/Pragya-19/Playwright-TypeScript-E2E-Automation-Framework/actions/workflows/playwright.yml)
 
 End-to-end UI automation framework built using **Playwright and TypeScript** with **Page Object Model, external JSON test data, reusable page classes, assertions, HTML reporting, and GitHub Actions CI/CD**.
 
