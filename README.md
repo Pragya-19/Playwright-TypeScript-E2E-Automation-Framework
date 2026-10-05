@@ -162,10 +162,12 @@ The stable Chromium suite currently executes **20 automated test cases with 20/2
 
 ![Playwright HTML Report](docs/screenshots/playwright-report-20-passed.png)
 
+
 ### GitHub Actions CI
 
 The automation suite is also executed in a clean Ubuntu CI environment using GitHub Actions.
 
 ![GitHub Actions CI](docs/screenshots/github-actions-ci-passed.png)
+
 
 The CI pipeline installs dependencies and Chromium, executes the Playwright suite, and uploads the HTML report as a workflow artifact.
