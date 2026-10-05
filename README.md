@@ -1,21 +1,29 @@
 # Playwright TypeScript E2E Automation Framework
+
 [![Playwright Tests](https://github.com/Pragya-19/Playwright-TypeScript-E2E-Automation-Framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/Pragya-19/Playwright-TypeScript-E2E-Automation-Framework/actions/workflows/playwright.yml)
 
-End-to-end UI automation framework built using **Playwright and TypeScript** with **Page Object Model, external JSON test data, reusable page classes, assertions, HTML reporting, and GitHub Actions CI/CD**.
+End-to-end UI automation framework built using **Playwright and TypeScript** with **Page Object Model, reusable page classes, external JSON test data, Playwright assertions, HTML reporting, and GitHub Actions CI/CD**.
+
+The application under test is **SauceDemo / Swag Labs**.
+
+---
 
 ## Project Objective
 
-This project demonstrates a maintainable end-to-end UI automation framework for validating core e-commerce workflows on SauceDemo.
+This project demonstrates a structured and maintainable end-to-end UI automation framework for validating critical e-commerce workflows.
 
 The framework focuses on:
 
-- Reusable Page Object classes
-- Separation of test logic and page interactions
-- External test data management
-- Functional and negative test coverage
-- Stable Chromium execution
-- Automated CI execution using GitHub Actions
-- Playwright HTML reporting
+- separation of test logic and page interactions
+- reusable Page Object classes
+- external test-data management
+- positive and negative test coverage
+- Playwright web-first assertions
+- stable Chromium execution
+- automated CI execution
+- HTML test reporting
+
+---
 
 ## Tech Stack
 
@@ -24,60 +32,38 @@ The framework focuses on:
 - Node.js
 - Page Object Model
 - JSON Test Data
-- Git & GitHub
+- Git
+- GitHub
 - GitHub Actions
 - Playwright HTML Reporter
 
-## Test Coverage
-
-The current suite contains **20 automated test cases** covering:
-
-### Login
-- Successful login
-- Invalid credentials
-- Locked-out user
-- Empty field validation
-- Login page validation
-
-### Inventory
-- Inventory page validation
-- Product selection
-- Add to cart
-- Remove from cart
-- Cart badge validation
-
-### Shopping Cart
-- Cart navigation
-- Product validation
-- Remove item from cart
-- Continue shopping
-
-### Checkout
-- Checkout navigation
-- Customer information
-- Checkout overview
-- Price validation
-- Order completion
-- Confirmation validation
+---
 
 ## Framework Architecture
 
 ```text
-Test Data
-   ↓
-Test Cases
-   ↓
+External Test Data
+        ↓
+Playwright Test Cases
+        ↓
 Page Object Model
-   ↓
-Playwright Browser Automation
-   ↓
-Assertions
-   ↓
-HTML Report
-   ↓
+        ↓
+Reusable Page Methods & Locators
+        ↓
+Browser Automation
+        ↓
+Playwright Assertions
+        ↓
+HTML Test Report
+        ↓
 GitHub Actions CI
+```
 
-Project Structure
+---
+
+## Project Structure
+
+```text
 Playwright-TypeScript-E2E-Automation-Framework
 │
 ├── .github/
@@ -87,6 +73,11 @@ Playwright-TypeScript-E2E-Automation-Framework
 ├── data/
 │   └── testData.json
 │
+├── docs/
+│   └── screenshots/
+│       ├── playwright-report-20-passed.png
+│       └── github-actions-ci-passed.png
+│
 ├── pages/
 │   ├── LoginPage.ts
 │   ├── InventoryPage.ts
@@ -95,80 +86,322 @@ Playwright-TypeScript-E2E-Automation-Framework
 │
 ├── tests/
 │   └── ecommerceE2E.spec.ts
-│docs/
-└── screenshots/
-    ├── playwright-report-20-passed.png
-    └── github-actions-ci-passed.png
-├── playwright.config.ts
+│
+├── .gitignore
 ├── package.json
 ├── package-lock.json
-├── .gitignore
+├── playwright.config.ts
 └── README.md
-
-Running the Project
-Install dependencies:
-npm install
-
-Install Playwright browsers:
-npx playwright install
-
-Run the stable Chromium test suite:
-npm test
-
-Run all configured browser projects:
-npm run test:all
-
-Run in headed mode:
-npm run test:headed
-
-Open Playwright UI mode:
-npm run test:ui
-
-Open the HTML report:
-npm run report
-
-CI/CD
-GitHub Actions automatically:
-1. Checks out the repository
-2. Sets up Node.js
-3. Installs dependencies
-4. Installs Chromium
-5. Executes the Playwright test suite
-6. Uploads the Playwright HTML report as an artifact
-The default CI pipeline currently runs the stable Chromium suite.
-
-Current Execution Status
-- 20 Playwright tests
-- 20/20 passing locally on Chromium
-- GitHub Actions CI passing
-- HTML reporting enabled
-
-Key Concepts Demonstrated
-- End-to-end UI automation
-- Page Object Model
-- Reusable locators and page methods
-- External test data
-- Positive and negative testing
-- Playwright assertions
-- Automated CI execution
-- Test reporting
-- Git version control
 ```
+
+---
+
+## Test Coverage
+
+The current suite contains **20 automated Playwright test cases** covering the major SauceDemo user journeys.
+
+### Login
+
+- successful login with valid credentials
+- invalid credential validation
+- locked-out user validation
+- empty-field validation
+- login page validation
+
+### Inventory
+
+- inventory page verification
+- product listing validation
+- adding products to cart
+- removing products
+- shopping cart badge validation
+
+### Shopping Cart
+
+- cart navigation
+- selected-product validation
+- removing products from cart
+- continuing shopping
+- cart-state validation
+
+### Checkout
+
+- checkout navigation
+- customer information entry
+- checkout overview validation
+- price and order-summary validation
+- successful order completion
+- confirmation validation
+
+---
+
+## Page Object Model
+
+The framework uses the **Page Object Model (POM)** to separate page-specific locators and actions from test scenarios.
+
+```text
+Test
+ ↓
+Page Object
+ ↓
+Locator / Action
+ ↓
+Application
+```
+
+Page classes include:
+
+```text
+LoginPage
+InventoryPage
+CartPage
+CheckoutPage
+```
+
+This improves:
+
+- maintainability
+- code reuse
+- readability
+- locator management
+- test scalability
+
+---
+
+## External Test Data
+
+Test data is maintained separately from the automation logic using:
+
+```text
+data/testData.json
+```
+
+This keeps test inputs separate from test implementation and makes data maintenance easier.
+
+---
+
+## Running the Project
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Install Chromium
+
+```bash
+npx playwright install chromium
+```
+
+### Run the stable Chromium suite
+
+```bash
+npm test
+```
+
+### Run all configured browser projects
+
+```bash
+npm run test:all
+```
+
+### Run Chromium in headed mode
+
+```bash
+npm run test:headed
+```
+
+### Open Playwright UI mode
+
+```bash
+npm run test:ui
+```
+
+### Open the HTML report
+
+```bash
+npm run report
+```
+
+---
+
+## NPM Scripts
+
+The project provides reusable commands for common test-execution workflows:
+
+```text
+npm test
+        → Chromium automation suite
+
+npm run test:all
+        → All configured Playwright browser projects
+
+npm run test:headed
+        → Chromium execution with visible browser
+
+npm run test:ui
+        → Playwright interactive UI mode
+
+npm run report
+        → Open latest Playwright HTML report
+```
+
+---
+
+## Current Execution Status
+
+- **20 automated Playwright tests**
+- **20/20 passing locally on Chromium**
+- **0 failed**
+- GitHub Actions CI passing
+- Ubuntu CI execution validated
+- Playwright HTML reporting enabled
+- HTML report uploaded as a CI artifact
+
+---
 
 ## Execution Evidence
 
 ### Local Playwright Execution
 
-The stable Chromium suite currently executes **20 automated test cases with 20/20 passing**.
+The current stable Chromium suite executes all **20 automated tests successfully**.
 
 ![Playwright HTML Report](docs/screenshots/playwright-report-20-passed.png)
 
+---
 
 ### GitHub Actions CI
 
-The automation suite is also executed in a clean Ubuntu CI environment using GitHub Actions.
+The same stable automation suite executes successfully in a clean **Ubuntu GitHub Actions environment**.
 
 ![GitHub Actions CI](docs/screenshots/github-actions-ci-passed.png)
 
+The CI pipeline:
 
-The CI pipeline installs dependencies and Chromium, executes the Playwright suite, and uploads the HTML report as a workflow artifact.
+1. checks out the repository
+2. sets up Node.js
+3. installs project dependencies
+4. installs Chromium
+5. executes the Playwright suite
+6. uploads the Playwright HTML report as a workflow artifact
+
+---
+
+## CI/CD Architecture
+
+```text
+Code Push / Pull Request
+          ↓
+GitHub Actions Trigger
+          ↓
+Ubuntu Runner
+          ↓
+Node.js Setup
+          ↓
+npm ci
+          ↓
+Install Chromium
+          ↓
+npm test
+          ↓
+Playwright Assertions
+          ↓
+HTML Report
+          ↓
+Workflow Artifact
+```
+
+---
+
+## CI Debugging Example
+
+During CI integration, the test suite passed locally on Windows but initially failed on the Linux GitHub Actions runner because of a **filename casing mismatch**.
+
+The test referenced:
+
+```text
+testData.json
+```
+
+while the repository contained:
+
+```text
+testData.JSON
+```
+
+Windows handled the casing difference, while Linux treated the filenames as different.
+
+The issue was resolved by standardizing the filename and import casing.
+
+This highlights an important CI principle:
+
+> A test framework should be validated in a clean environment, not only on the developer's local machine.
+
+---
+
+## Browser Strategy
+
+The Playwright configuration supports multiple browser projects.
+
+For the current portfolio baseline:
+
+```text
+Default local execution → Chromium
+Default CI execution    → Chromium
+```
+
+Chromium is used as the stable automated quality gate.
+
+Additional configured browser projects can be executed using:
+
+```bash
+npm run test:all
+```
+
+Cross-browser stability can be expanded independently without affecting the default CI baseline.
+
+---
+
+## Key Concepts Demonstrated
+
+- Playwright browser automation
+- TypeScript
+- End-to-end UI testing
+- Page Object Model
+- Reusable page methods
+- Locator management
+- External JSON test data
+- Positive testing
+- Negative testing
+- Playwright web-first assertions
+- Test reporting
+- Git version control
+- GitHub Actions CI/CD
+- Linux CI execution
+- CI debugging
+- Test artifact generation
+
+---
+
+## Key Learning
+
+This project demonstrates that building a reliable automation framework requires more than writing test scripts.
+
+The framework combines:
+
+```text
+Test Design
+   +
+Reusable Automation
+   +
+Stable Assertions
+   +
+Test Data Management
+   +
+CI Execution
+   +
+Reporting
+```
+
+to create a repeatable end-to-end quality-engineering workflow.
